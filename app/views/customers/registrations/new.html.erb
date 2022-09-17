@@ -8,6 +8,11 @@
       <%= f.text_field :name, autofocus: true, class: "name" %>
    </div>
 
+   <div class="field">
+      <%= f.label "平日希望・土日祝希望・どちらでも可・を記入してください" %><br />
+      <%= f.text_field :free, autofocus: true, class: "name" %>
+   </div>
+   
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

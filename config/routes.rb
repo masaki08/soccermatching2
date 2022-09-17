@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'posts/index'
-  get 'posts/show'
-  get 'posts/edit'
-  get 'posts/new'
+
+  resources :posts
+
   root :to =>"homes#top"
   get 'relationships/index'
   get 'relationships/new'
