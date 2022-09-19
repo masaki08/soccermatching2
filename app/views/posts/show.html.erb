@@ -7,3 +7,22 @@
 <div id = "favorite_<%= @post.id %>">
   <%#= render partial: "favorites/favorite", locals: { post: @post } %>
 </div>
+<h3>コメント一覧</h3>
+<% @comments.each do |c| %>
+  <%= c.body %>
+  <% if customer_signed_in? %>
+    <% if current_customer.id == c.customer_id %>
+      <%= link_to "編集", edit_post_comment_path(@post, c) %>
+      <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
+    <% elsif current_customer.id == @post.customer_id then %>
+      <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if customer_signed_in? %>
+  <%= form_with model: [@post, @comment] do |f| %>
+    <%= f.text_area :body, placeholder: "コメントする" %>
+    <%= f.submit "SEND" %>
+  <% end %>
+<% end %>

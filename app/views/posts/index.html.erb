@@ -4,5 +4,12 @@
   <span>
     <%= link_to post.title, post_path(post.id) %>
   </span>
-
+  <span>
+    <%= post.customer.name %>
+  </span>
+<% if current_customer.following?(post.customer) %>
+  <%= link_to "フォロー外す", customer_relationships_path(post.customer.id), method: :delete %>
+<% else %>
+  <%= link_to "フォローする", customer_relationships_path(post.customer.id), method: :post %>
+<% end %>
 <% end %>
