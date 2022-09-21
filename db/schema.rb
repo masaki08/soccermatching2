@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_19_085600) do
+ActiveRecord::Schema.define(version: 2022_09_21_104120) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 2022_09_19_085600) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "post_id", null: false
@@ -55,6 +60,11 @@ ActiveRecord::Schema.define(version: 2022_09_19_085600) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_favorites_on_customer_id"
     t.index ["post_id"], name: "index_favorites_on_post_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -68,6 +78,11 @@ ActiveRecord::Schema.define(version: 2022_09_19_085600) do
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

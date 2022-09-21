@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def index
-     @posts = Post.all
+    @post = Post.new
+    
+    @posts = Post.all
   end
 
   def show
@@ -21,8 +23,12 @@ class PostsController < ApplicationController
   def create
    @post = Post.new(post_parmas)
    @post.customer = current_customer
-   @post.save
-   redirect_to post_path(@post.id)
+   if @post.save
+     redirect_to posts_path(@post.id)
+   else
+     @posts = Post.all
+     render :new
+   end
   end
 
   def update
@@ -38,6 +44,12 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to request.referer
+  end
+
+  def search
+     @posts = Post.search(params[:keyword])
+     @keyword = params[:keyword]
+     render "index"
   end
 
   private

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'entrys/show'
+  get 'entrys/index'
+  get 'entrys/edit'
+  get 'rooms/show'
+  get 'rooms/index'
+  get 'rooms/edit'
    devise_for :customers,controllers: {
     sessions: 'customers/sessions',
     passwords: 'customers/passwords',
@@ -16,16 +22,27 @@ Rails.application.routes.draw do
   end
 
   root :to =>"homes#top"
+  get 'search' => 'posts#search'
   get 'messeges/index'
   get 'messeges/new'
   get 'messeges/show'
   get 'messeges/edit'
   get 'homes/top'
+  
+  resources :customers, only: [:show,:edit,:update]
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show]
+
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+  end
+
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
     passwords: 'admins/passwords',
     registrations: 'admins/registrations'
   }
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

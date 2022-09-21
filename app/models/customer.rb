@@ -12,7 +12,15 @@ class Customer < ApplicationRecord
 
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
+  def self.guest
+     find_or_create_by!(email: 'guest@example.com') do |customer|
+       customer.password = SecureRandom.urlsafe_base64
+    end
+  end
 
   def follow(customer_id)
     relationships.create(followed_id: customer_id)
