@@ -4,14 +4,16 @@ class FavoritesController < ApplicationController
 
   def create
     Favorite.create(customer_id: current_customer.id, post_id: @post.id)
+    redirect_to posts_path
   end
 
   def destroy
-    favorite = Favorite.find_by(customer_id: current_customer.id, post_id: @post.id)
-    like.destroy
+    Favorite.find_by(customer_id: current_customer.id, post_id: @post.id).destroy
+    redirect_to posts_path
   end
 
   private
+
   def post_params
     @post = Post.find(params[:post_id])
   end

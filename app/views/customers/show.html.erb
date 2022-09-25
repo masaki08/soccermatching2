@@ -1,5 +1,17 @@
+<h1>about me</h1>
+
+<h3>ユーザー名</h3>
+<%= @customer.name %>
+<h3>メールアドレス</h3>
+<%= @customer.email %>
+<h3>プロフィール</h3>
+<%= @customer.profile%>
+<h2>フォロー数</h2>
+<%= @customer.active_relationships.count %>
+
+
 <% unless @customer.id == current_customer.id %>
-  <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>
+  <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>-->
   <% if @isRoom == true %>
     <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
   <% else %>
@@ -11,4 +23,4 @@
     <% end %>
   <% end %>
   <% end %>
-<% end %>
+  <% end %>

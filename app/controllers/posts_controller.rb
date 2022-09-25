@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   def index
     @post = Post.new
-    
     @posts = Post.all
   end
 
@@ -48,6 +47,7 @@ class PostsController < ApplicationController
 
   def search
      @posts = Post.search(params[:keyword])
+     @post = Post.new
      @keyword = params[:keyword]
      render "index"
   end
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   private
 
   def post_parmas
-     params.require(:post).permit(:title, :body, :customer_id)
+     params.require(:post).permit(:title, :body, :customer_id, :image)
 
   end
 end

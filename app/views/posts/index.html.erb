@@ -1,80 +1,95 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
     <div class='col-md-3'>
-
-<h1>投稿フォーム</h1>
+      <h4>投稿フォーム</h4>
+      <table class='table'>
+  <th><%#= image_tag @user.get_profile_image(200,200) %></th>
+  <tr>
+	  <th>name</th>
+	  <th><%= current_customer.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= current_customer.email %></th>
+  </tr>
+</table>
 <% if @post.errors.any? %>
-  <%= @post.errors.count %>件のエラーが発生しました
+  <%= @post.errors.count %>errors prohibited this book from being saved:
+  <% end %>
+
   <ul>
     <% @post.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_with model: @post, url: '/posts', method: :post do |f| %>
+<div class='row'>
+  <%#=link_to edit_customer_path(current_customer),class:"btn btn-outline-secondary btn-block" do %>
+    <i class="fas fa-user-cog"></i>
+    <%# end %>
+</div>
+      <h4>新規投稿</h4>
 
-  <h3>タイトル</h3>
+<%= form_with model: @post do |f| %>
+  <h4>タイトル</h4>
   <%= f.text_field :title %>
 
-  <h3>本文</h3>
-
+  <h4>本文</h4>
   <%= f.text_area :body %>
+
   <%= f.submit '投稿' %>
-  <div class='row'>
-
-    <i class="fas fa-user-cog"></i>
 <% end %>
-<table>
-   <div class='col-md-8 offset-md-1'>
-
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>投稿一覧</h2>
+      <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :keyword, value: @keyword %>
+      <%= f.submit "検索" %>
+      <% end %>
       <table class='table table-hover table-inverse'>
-        <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>投稿者名</th>
-            <th>タイトル</th>
-            <th>本文</th>
-        </tr>
-    </thead>
- <tbody>
-        <% @posts.each do |post| %>
-            <tr>
-                <td><%= post.customer.name %></td>
-                <td><%= post.title %></td>
-                <td><%= post.body %></td>
-                <td><%= link_to "編集", edit_post_path(post) %></td>
-                <td><%= link_to "削除", post_path(post), method: :delete %></td>
-            </tr>
-        <% end %>
-    </tbody>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>タイトル</th>
+      <!--<th>本文</th>-->
+      <th>フォロワー</th>
+      <th>操作</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <!--<td>-->
+          <%#= link_to customer_path(post.customer.id) do %>
+          <%#= image_tag post..get_profile_image(100,100) %>
+          <%# end %>
+        <!--</td>-->
+        <td><%= post.customer.name %></td>
+        <td><%= link_to post.title, post_path(post.id) %></td>
+        <!--<td><%= post.body %></td>-->
+        <td>
+          <% if current_customer.id != post.customer.id %>
+            <% if current_customer.following?(post.customer) %>
+              <%= link_to 'フォローを外す', customer_relationships_path(post.customer.id), method: :DELETE %>
+              <%= link_to '(DMする)', rooms_path(target_customer: post.customer.id), method: :POST %>
+            <% else %>
+              <%= link_to 'フォローする', customer_relationships_path(post.customer.id), method: :POST %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <% if current_customer.id == post.customer.id %>
+            <%= link_to "編集", edit_post_path(post) %>
+            <%= link_to "削除", post_path(post), method: :delete %>
+          <% end %>
+        </td>
+        <td>
+          <%= render 'favorites/favorite', post: post %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-
-
-<h1>投稿一覧</h1>
-<div class="search-form">
-  <%= form_with url: search_path, method: :get, local: true do |f| %>
-    <%= f.text_field :keyword, value: @keyword %>
-    <%= f.submit "検索" %>
-  <% end %>
+    </div>
+  </div>
 </div>
-<div class="post-list">
-  <% @posts.each do |post| %>
-    <%= post.title %>
-  <% end %>
-</div>
-<% @posts.each do |post| %>
-  <p>タイトル</p>
-  <span>
-    <%= link_to post.title, post_path(post.id) %>
-  </span>
-  <span>
-    <%= post.customer.name %>
-  </span>
-<% if current_customer.following?(post.customer) %>
-  <%= link_to "フォロー外す", customer_relationships_path(post.customer.id), method: :delete %>
-<% else %>
-  <%= link_to "フォローする", customer_relationships_path(post.customer.id), method: :post %>
-<% end %>
-<% end %>
- </table>

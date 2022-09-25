@@ -2,6 +2,8 @@
 <p><%= @post.title %></p>
 <h2>本文</h2>
 <p><%= @post.body %></p>
+<h2>画像</h2>
+<%= attachment_image_tag @post, :image, :fill, 300, 300, format: 'jpeg' %>
 <%= link_to "編集", edit_post_path(@post.id) %>
 
 <div id = "favorite_<%= @post.id %>">
@@ -13,8 +15,6 @@
   <% if customer_signed_in? %>
     <% if current_customer.id == c.customer_id %>
       <%= link_to "編集", edit_post_comment_path(@post, c) %>
-      <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
-    <% elsif current_customer.id == @post.customer_id then %>
       <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
     <% end %>
   <% end %>

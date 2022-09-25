@@ -1,14 +1,20 @@
-<% if !customer_signed_in? %>
-  <i class="fa fa-heart like-btn"></i>
-  <%= post.favorites.length %>
-<% elsif current_customer.favorited_by?(post.id) %>
-  <%= link_to post_favorite_path(post, post.favorite), class: "favorite-link", method: :delete, remote: true do %>
-    <i class="fa fa-heart unlike-btn"></i>
+<% if customer_signed_in? %>
+  <%# もしログインしていれば… %>
+  <% if current_customer.favorited_by?(current_customer.id, post.id) %>
+    <%# いいねしていたら %>
+    <%= link_to post_favorite_path(post, post.favorite_id?(current_customer)), class: "favorite-link", method: :delete, remote: true do %>
+      <i class="fa fa-heart unlike-btn"></i>
+    <% end %>
+    <%= post.favorites.length %>
+  <% else %>
+    <%# いいねされていなかったら %>
+    <%= link_to post_favorites_path(post), class: "favorite-link", method: :post, remote: true do %>
+      <i class="far fa-heart like-btn"></i>
+    <% end %>
+    <%= post.favorites.length %>
   <% end %>
-  <%= post.favorites.length %>
 <% else %>
-  <%= link_to post_favorites_path(post), class: "favorite-link", method: :post, remote: true do %>
-    <i class="fa fa-heart like-btn"></i>
-  <% end %>
+  <%# もしログインしていなければ… %>
+  <i class="fa fa-heart like-btn"></i>
   <%= post.favorites.length %>
 <% end %>

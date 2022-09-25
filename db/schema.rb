@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_21_104120) do
+ActiveRecord::Schema.define(version: 2022_09_25_052826) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -44,11 +44,14 @@ ActiveRecord::Schema.define(version: 2022_09_21_104120) do
     t.string "free"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "profile"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
   create_table "entries", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -63,6 +66,9 @@ ActiveRecord::Schema.define(version: 2022_09_21_104120) do
   end
 
   create_table "messages", force: :cascade do |t|
+    t.integer "room_id"
+    t.integer "customer_id"
+    t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -73,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_09_21_104120) do
     t.string "title"
     t.text "body"
     t.integer "customer_id"
+    t.string "image_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -80,6 +87,9 @@ ActiveRecord::Schema.define(version: 2022_09_21_104120) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -91,4 +101,6 @@ ActiveRecord::Schema.define(version: 2022_09_21_104120) do
   add_foreign_key "comments", "posts"
   add_foreign_key "favorites", "customers"
   add_foreign_key "favorites", "posts"
+  add_foreign_key "relationships", "customers", column: "followed_id"
+  add_foreign_key "relationships", "customers", column: "follower_id"
 end

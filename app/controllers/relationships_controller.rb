@@ -1,12 +1,5 @@
 class RelationshipsController < ApplicationController
-  def index
-  end
-
-  def show
-  end
-
-  def edit
-  end
+  before_action :authenticate_customer!
 
   def create
     current_customer.follow(params[:customer_id])
@@ -18,13 +11,16 @@ class RelationshipsController < ApplicationController
     redirect_to request.referer
   end
 
-  def followings
+  # フォローしている人一覧
+  def follower
     customer = Customer.find(params[:customer_id])
     @customers = customer.followings
   end
 
-  def followers
+  # フォローされている人一覧
+  def followed
     customer = Customer.find(params[:customer_id])
-    @customer = customer.followers
+    @customers = customer.followers
   end
+
 end

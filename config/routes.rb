@@ -10,9 +10,11 @@ Rails.application.routes.draw do
     passwords: 'customers/passwords',
     registrations: 'customers/registrations'
   }
+  get "customers/show" => "customers#show"
 
   resources :posts do
     resources :comments, only: [:edit, :show, :update, :create, :destroy]
+    resources :favorites, only: [:create, :destroy]
   end
 
   resources :customers do
@@ -28,10 +30,11 @@ Rails.application.routes.draw do
   get 'messeges/show'
   get 'messeges/edit'
   get 'homes/top'
-  
+
   resources :customers, only: [:show,:edit,:update]
-  resources :messages, only: [:create]
-  resources :rooms, only: [:create,:show]
+  resources :rooms, only: [:create, :show] do
+    resources :messages, only: [:create]
+  end
 
   devise_scope :customer do
     post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
