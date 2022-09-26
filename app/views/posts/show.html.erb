@@ -1,28 +1,33 @@
-<h2>タイトル</h2>
-<p><%= @post.title %></p>
-<h2>本文</h2>
-<p><%= @post.body %></p>
-<h2>画像</h2>
-<%= attachment_image_tag @post, :image, :fill, 300, 300, format: 'jpeg' %>
-<%= link_to "編集", edit_post_path(@post.id) %>
-
-<div id = "favorite_<%= @post.id %>">
-  <%#= render partial: "favorites/favorite", locals: { post: @post } %>
-</div>
-<h3>コメント一覧</h3>
-<% @comments.each do |c| %>
-  <%= c.body %>
-  <% if customer_signed_in? %>
-    <% if current_customer.id == c.customer_id %>
-      <%= link_to "編集", edit_post_comment_path(@post, c) %>
-      <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% if customer_signed_in? %>
-  <%= form_with model: [@post, @comment] do |f| %>
-    <%= f.text_area :body, placeholder: "コメントする" %>
-    <%= f.submit "SEND" %>
-  <% end %>
-<% end %>
+<div class='container-fluid'>
+  <div class='row'>
+   <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">     
+      <h2>タイトル</h2>
+      <p><%= @post.title %></p>
+      <h2>本文</h2>
+      <p><%= @post.body %></p>
+      
+      <%= link_to "編集", edit_post_path(@post.id) %>
+      
+      <div id = "favorite_<%= @post.id %>">
+        <%#= render partial: "favorites/favorite", locals: { post: @post } %>
+      </div>
+      <h3>コメント一覧</h3>
+      <% @comments.each do |c| %>
+        <%= c.body %>
+        <% if customer_signed_in? %>
+          <% if current_customer.id == c.customer_id %>
+            <%= link_to "編集", edit_post_comment_path(@post, c) %>
+            <%= link_to "削除", post_comment_path(@post, c), method: :delete %>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <% if customer_signed_in? %>
+        <%= form_with model: [@post, @comment] do |f| %>
+          <%= f.text_area :body, class: 'form-control', placeholder: "コメントする" %>
+          <%= f.submit "SEND" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>  

@@ -45,7 +45,11 @@ Rails.application.routes.draw do
     passwords: 'admins/passwords',
     registrations: 'admins/registrations'
   }
-
+  
+  namespace :admin do
+    resources :posts, only: [:index, :show, :destroy]
+    resources :comments, only: [:destroy]
+  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

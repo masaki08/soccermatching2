@@ -1,0 +1,28 @@
+<div id=list_index></div>
+<span><%#= link_to 'Show', admin_posts_path(product) %></span> 
+<span><%#= link_to 'Edit', edit_post_path(product) %></span> 
+<span><%#= link_to 'Destroy', admin_post_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></span>
+
+<table>
+    <thead>
+        <tr>
+            <th>投稿者名</th>
+            <th>タイトル</th>
+            <th>本文</th>
+            <th></th>
+        </tr>
+    </thead>
+ <tbody>
+        <% @posts.each do |post| %>
+            <tr>
+                <td><%= post.customer&.name %></td>
+                <td><%= post.title %></td>
+                <td><%= post.body %></td>
+                <td>
+                    <%= link_to "詳細", admin_post_path(post) %> | 
+                    <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+                </td> 
+            </tr>
+        <% end %>
+    </tbody>
+</table>

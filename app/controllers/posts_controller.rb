@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+   before_action :authenticate_customer!
   def index
     @post = Post.new
     @posts = Post.all
@@ -20,8 +21,7 @@ class PostsController < ApplicationController
   end
 
   def create
-   @post = Post.new(post_parmas)
-   @post.customer = current_customer
+    @post = current_customer.posts.build(post_params)
    if @post.save
      redirect_to posts_path(@post.id)
    else
@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(post_parmas)
+    if @post.update(post_params)
       redirect_to post_path(@post.id)
     else
       render :new
@@ -54,7 +54,7 @@ class PostsController < ApplicationController
 
   private
 
-  def post_parmas
+  def post_params
      params.require(:post).permit(:title, :body, :customer_id, :image)
 
   end

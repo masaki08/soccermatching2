@@ -16,18 +16,17 @@
 
           <div class="container">
             <% if admin_signed_in? %>
-              <%= link_to admin_root_path do %>
-                <%= image_tag "no_image.jpg", size: "100x100" %>
+              <%= link_to root_path do %>
+                <%= image_tag "soccer_image.jpg", size: "100x100" %>
               <% end %>
               <ul class="nav justify-content-end">
-                <li class="nav-item btn"><%= link_to "会員一覧", root_path, class: 'nav-link text-dark' %></li>
-                <li class="nav-item btn"><%= link_to "注文履歴一覧", admin_root_path, class: 'nav-link text-dark' %></li>
-                <li class="nav-item btn"><%= link_to "ジャンル一覧", admin_genres_path, class: 'nav-link text-dark' %></li>
+                <li class="nav-item btn"><%= link_to "投稿一覧", admin_posts_path, class: 'nav-link text-dark' %></li>
+             
                 <li class="nav-item btn"><%= link_to "ログアウト",  destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %></li>
               </ul>
             <% elsif customer_signed_in? %>
               <%= link_to root_path do %>
-                <%= image_tag "no_image.jpg", size: "100x100" %>
+                <%= image_tag "soccer_image.jpg", size: "100x100" %>
               <% end %>
               <ul class="nav justify-content-end">
                 <li class="nav-item btn"><%= link_to "マイページ",  edit_customer_registration_path, class: 'nav-link text-dark' %></li>
@@ -37,7 +36,7 @@
               </ul>
             <% else %>
               <%= link_to root_path do %>
-                <%= image_tag "no_image.jpg", size: "100x100" %>
+                <%= image_tag "soccer_image.jpg", size: "100x100" %>
               <% end %>
               <ul class="nav justify-content-end">
 
@@ -56,6 +55,8 @@
            </div>
          </div>
       </footer>
-
+    <%= debug(params) if Rails.env.development? %><br><br>
+    admin:<%= current_admin.inspect if Rails.env.development? %><br><br>
+    customer:<%= current_customer.inspect if Rails.env.development? %>
   </body>
 </html>
