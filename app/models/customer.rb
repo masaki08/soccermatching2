@@ -3,11 +3,11 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :comments, dependent: :destroy
-  
+
 
  # フォローするユーザーから見た中間テーブル
   has_many :active_relationships,
@@ -39,7 +39,7 @@ class Customer < ApplicationRecord
   validates :profile, length: { maximum: 200 }
 
   def self.guest
-     find_or_create_by!(email: 'guest@example.com') do |customer|
+     find_or_create_by!(email: 'guest@example.com', name: 'ゲストネーム') do |customer|
        customer.password = SecureRandom.urlsafe_base64
     end
   end

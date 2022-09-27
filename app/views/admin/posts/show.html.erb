@@ -1,42 +1,48 @@
-<table>
-    <thead>
-        <tr>
-            <th>投稿者名</th>
-            <th>タイトル</th>
-            <th>本文</th>
-            <th></th>
-        </tr>
-    </thead>
- <tbody>
-        
+<div class='container-fluid'>
+  <div class='row'>
+   <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <table class="table">
+        <thead>
             <tr>
-                <td><%= @post.customer&.name %></td>
-                <td><%= @post.title %></td>
-                <td><%= @post.body %></td>
-                <td>
-                    
-                    <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-                </td> 
+                <th>投稿者名</th>
+                <th>タイトル</th>
+                <th>本文</th>
+                <th></th>
             </tr>
-       
-    </tbody>
-</table>
-
-<table>
-    <thead>
-        <tr>
-            <th>コメント</th>
-            <th></th>
-        </tr>
-    </thead>
- <tbody>
-        <% @comments.each do |comment| %>
+        </thead>
+     <tbody>
+            
+                <tr>
+                    <td><%= @post.customer&.name %></td>
+                    <td><%= @post.title %></td>
+                    <td><%= @post.body %></td>
+                    <td>
+                        
+                        <%= link_to '削除', admin_post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+                    </td> 
+                </tr>
+           
+        </tbody>
+    </table>
+    
+    <table>
+        <thead>
             <tr>
-                <td><%= comment.body %></td>
-                <td>
-                    <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-                </td> 
+                <th>コメント</th>
+                <th></th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+     <tbody>
+            <% @comments.each do |comment| %>
+                <tr>
+                    <td><%= comment.body %></td>
+                    <td>
+                        <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+                    </td> 
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+   </div>
+  </div>
+</div>  
