@@ -2,44 +2,44 @@
  <div class='row'>
   <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
        <h2>サインイン</h2>
-      
+
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "customers/shared/error_messages", resource: resource %>
-        
+
          <div class="field">
             <%= f.label :名前 %><br />
             <%= f.text_field :name, autofocus: true, class: "name" %>
          </div>
-      
+
          <div class="field">
             <%= f.label "平日希望・土日祝希望・どちらでも可・を記入してください" %><br />
             <%= f.text_field :free, autofocus: true, class: "name" %>
          </div>
-         
+
         <div class="field">
           <%= f.label :Eメール %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>
-      
+
         <div class="field">
           <%= f.label :パスワード %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "new-password" %>
         </div>
-      
+
         <div class="field">
-          <%= f.label :password_confirmation %><br />
+          <%= f.label :同じパスワードを入力してください（確認用） %><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
         </div>
-      
+
         <div class="actions">
           <%= f.submit "サインアップ" %>
         </div>
        <% end %>
-      
+
        <%= render "customers/shared/links" %>
   </div>
  </div>
-</div> 
+</div>
