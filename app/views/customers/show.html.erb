@@ -10,12 +10,11 @@
 
 
 <% unless @customer.id == current_customer.id %>
-  <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>-->
-  <% if @isRoom == true %>
-    <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-  <% else %>
-    <%= link_to '(DMする)', rooms_path(target_customer: @customer.id), method: :POST %>
-
+  <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>
+    <% if @isRoom == true %>
+      <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+    <% else %>
+      <%= link_to '(DMする)', rooms_path(target_customer: @customer.id), method: :POST %>
+    <% end %>
   <% end %>
-  <% end %>
-  <% end %>
+<% end %>

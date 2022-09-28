@@ -70,13 +70,17 @@
         <td><%= link_to post.title, post_path(post.id) %></td>
         <!--<td><%= post.body %></td>-->
         <td>
+          <p><%= post.customer.inspect %></p>
           <% if current_customer.id != post.customer.id %>
             <% if current_customer.following?(post.customer) %>
               <%= link_to 'フォローを外す', customer_relationships_path(post.customer.id), method: :DELETE %>
-              <%= link_to '(DMする)', rooms_path(target_customer: post.customer.id), method: :POST %>
             <% else %>
               <%= link_to 'フォローする', customer_relationships_path(post.customer.id), method: :POST %>
             <% end %>
+            <% if current_customer.following?(post.customer) && post.customer.following?(current_customer) %>
+              <%= link_to '(DMする)', rooms_path(target_customer: post.customer.id), method: :POST %>
+            <% end %>
+
           <% end %>
         </td>
         <td>
