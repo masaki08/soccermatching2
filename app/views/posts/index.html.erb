@@ -70,7 +70,7 @@
         <td><%= link_to post.title, post_path(post.id) %></td>
         <!--<td><%= post.body %></td>-->
         <td>
-          <p><%= post.customer.inspect %></p>
+          <p><%#= post.customer.inspect %></p>
           <% if current_customer.id != post.customer.id %>
             <% if current_customer.following?(post.customer) %>
               <%= link_to 'フォローを外す', customer_relationships_path(post.customer.id), method: :DELETE %>

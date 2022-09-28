@@ -1,20 +1,26 @@
-<h1>about me</h1>
+<div class='container-fluid'>
+  <div class='row'>
+   <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h1>about me</h1>
 
-<br><h3>ユーザー名</h3>
-<%= @customer.name %></br>
+      <br><h3>ユーザー名</h3>
+      <%= @customer.name %></br>
 
-<br><h3>プロフィール</h3></br>
-<%= @customer.profile%>
-<h2>フォロー数</h2>
-<%= @customer.active_relationships.count %>
+      <br><h3>プロフィール</h3></br>
+      <%= @customer.profile%>
+      <h2>フォロー数</h2>
+      <%= @customer.active_relationships.count %>
 
 
-<% unless @customer.id == current_customer.id %>
-  <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>
-    <% if @isRoom == true %>
-      <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-    <% else %>
-      <%= link_to '(DMする)', rooms_path(target_customer: @customer.id), method: :POST %>
-    <% end %>
-  <% end %>
-<% end %>
+      <% unless @customer.id == current_customer.id %>
+        <% if (current_customer.followed_by? @customer) && (@customer.followed_by? current_customer)  %>
+          <% if @isRoom == true %>
+            <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+          <% else %>
+            <%= link_to '(DMする)', rooms_path(target_customer: @customer.id), method: :POST %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

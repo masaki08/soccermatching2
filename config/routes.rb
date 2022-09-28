@@ -2,9 +2,7 @@ Rails.application.routes.draw do
   get 'entrys/show'
   get 'entrys/index'
   get 'entrys/edit'
-  #get 'rooms/show'
-  #get 'rooms/index'
-  #get 'rooms/edit'
+ 
    devise_for :customers,controllers: {
     sessions: 'customers/sessions',
     passwords: 'customers/passwords',

@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
     cc_entry = Entry.where(customer_id: current_customer.id).pluck(:room_id)
     tc_entry = Entry.where(customer_id: params[:target_customer]).pluck(:room_id)
     room_id = cc_entry & tc_entry
-    #byebug
+    
 
     #entrys = Entry.where(customer_id: params[:target_customer])
     #entry_exists = []
