@@ -15,7 +15,7 @@
 
   <h3>本文</h3>
   <%= f.text_area :body %>
-  
+
   <%= f.submit '投稿' %>
 <% end %>
 <table>
@@ -32,8 +32,10 @@
                 <td><%= post.customer.try(:name) %></td>
                 <td><%= post.title %></td>
                 <td><%= post.body %></td>
+                <% if current_customer.id == post.customer_id %>
                 <td><%= link_to "編集", edit_post_path(post) %></td>
                 <td><%= link_to "削除", post_path(post), method: :delete %></td>
+                <% end %>
             </tr>
         <% end %>
     </tbody>

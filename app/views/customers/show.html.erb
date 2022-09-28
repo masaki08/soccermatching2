@@ -14,12 +14,8 @@
   <% if @isRoom == true %>
     <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
   <% else %>
-    <%= form_with model: @room do |f| %>
-      <%= fields_for @entry do |e| %>
-        <%= e.hidden_field :customer_id, value: @customer.id %>
-      <% end %>
-      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
-    <% end %>
+    <%= link_to '(DMする)', rooms_path(target_customer: @customer.id), method: :POST %>
+
   <% end %>
   <% end %>
   <% end %>
