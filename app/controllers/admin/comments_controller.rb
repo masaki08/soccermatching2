@@ -5,5 +5,6 @@ class Admin::CommentsController < ApplicationController
      @comment.destroy if @comment
      flash[:success] = "コメントを削除しました"
      redirect_to admin_post_path(@comment.post)
+     a
   end
 end
